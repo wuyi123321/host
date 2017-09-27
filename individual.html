@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>服务器信息</title>
+    <meta name="generator" content="editplus" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=no, width=device-width">
+    <meta name="author" content="" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+</head>
+<link rel="stylesheet" href="css/font-awesome.css" type="text/css">
+<link rel="stylesheet" href="css/comcss.css" type="text/css" />
+<link rel="stylesheet" href="css/eleui.css" type="text/css" />
+<link rel="stylesheet" href="css/individual.css" type="text/css">
+
+<body>
+<div id="main">
+    <div class="title">
+        <div class="title_name">主要信息</div>
+        <div class="icon" @click="bgShow(1)"><i class="icon-pencil"></i></div>
+    </div>
+    <div class="content">
+        <ul >
+            <li>
+                <div class="name">IP</div>
+                <div class="value">{{mainData.ip}}</div>
+            </li>
+            <li>
+                <div class="name">服务器名称</div>
+                <div class="value">{{mainData.hostName}}</div>
+            </li>
+            <li>
+                <div class="name">类型</div>
+                <div class="value">{{mainData.typeName}}</div>
+            </li>
+            <li>
+                <div class="name">地区</div>
+                <div class="value">{{mainData.areaName}}</div>
+            </li>
+
+            <li>
+                <div class="name">操作系统</div>
+                <div class="value">{{mainData.osName}}</div>
+            </li>
+            <li>
+                <div class="name">资产编号</div>
+                <div class="value">{{mainData.assetNo}}</div>
+            </li>
+        </ul>
+    </div>
+    <div class="title">
+        <div class="title_name">重点信息</div>
+        <div class="icon"><i class="icon-pencil"  @click="bgShow(2)"></i></div>
+    </div>
+    <div class="content">
+        <ul >
+            <li>
+                <div class="name">位置</div>
+                <div class="value">{{mainData.location}}</div>
+            </li>
+            <li>
+                <div class="name">硬件说明</div>
+                <div class="value">{{mainData.hardware}}</div>
+            </li>
+            <li>
+                <div class="name">标签</div>
+                <div class="value">{{mainData.brandName}}</div>
+            </li>
+        </ul>
+    </div>
+    <div class="title">
+        <div class="title_name">其他信息</div>
+        <div class="icon"><i class="icon-pencil"  @click="bgShow(3)"></i></div>
+    </div>
+    <div class="content">
+        <ul >
+            <li>
+                <div class="name">管理员</div>
+                <div class="value">{{mainData.adminUser}}</div>
+            </li>
+            <li>
+                <div class="name">管理员电话</div>
+                <div class="value">{{mainData.adminTel}}</div>
+            </li>
+            <li>
+                <div class="name">硬件详情</div>
+                <div class="value">{{mainData.hardwareDetail}}</div>
+            </li>
+        </ul>
+    </div>
+    <div class="title" @click="getPassWord">
+        <div class="title_name">秘钥信息</div>
+        <div class="icon"><i class="icon-lock"></i></div>
+    </div>
+    <div class="bghidden" v-show="bgshow" >
+        <div class="cont" id="bghidden">
+
+            <div class="title">主要信息修改</div>
+            <div class="content">
+                <ul >
+                    <li>
+                        <div class="name">IP</div>
+                        <div class="value"><el-input placeholder="请填写服务器IP" v-model="mainData.host"></el-input></div>
+                    </li>
+                    <li>
+                        <div class="name">服务器名称</div>
+                        <div class="value"><el-input placeholder="请填写服务器名称" v-model="mainData.hostname"></el-input></div>
+                    </li>
+                    <li>
+                        <div class="name">地区</div>
+                        <div class="value"><el-select v-model="eara" placeholder="请选择" >
+                            <el-option
+                                    v-for="item in earas"
+                                    :label="item.lable"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select></div>
+                    </li>
+                    <li>
+                        <div class="name">类型</div>
+                        <div class="value"> <el-select v-model="hosttype" placeholder="请选择" >
+                            <el-option
+                                    v-for="item in hosttypes"
+                                    :label="item.lable"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select></div>
+                    </li>
+
+                    <li>
+                        <div class="name">操作系统</div>
+                        <div class="value"><el-select v-model="osty" placeholder="请选择" >
+                            <el-option
+                                    v-for="item in ostys"
+                                    :label="item.lable"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select></div>
+                    </li>
+                    <li>
+                        <div class="name">资产编号</div>
+                        <div class="value"><el-input placeholder="请填写服务器IP" v-model="mainData.hostip"></el-input></div>
+                    </li>
+                </ul>
+                <div class="bottom">
+                    <el-button>确定</el-button>
+                    <el-button @click="closeBg">取消</el-button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--请求信息遮罩-->
+    <div class="bgloading" v-show="bgloading">
+        <div class="con" >
+            数据加载中<i class="el-icon-loading"></i>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="comjs/comjs.js"></script>
+<script src="comjs/jquery.js"></script>
+<script src="comjs/vue@2.4.js"></script>
+<script src="comjs/elejs.js"></script>
+<script>
+    var token="dcf88e4b2976b6c4eb50e65b27390552";
+  Date.prototype.format = function(fmt) {
+      var o = {
+          "M+" : this.getMonth()+1,                 //月份
+          "d+" : this.getDate(),                    //日
+          "h+" : this.getHours(),                   //小时
+          "m+" : this.getMinutes(),                 //分
+          "s+" : this.getSeconds(),                 //秒
+          "q+" : Math.floor((this.getMonth()+3)/3), //季度
+          "S"  : this.getMilliseconds()             //毫秒
+      };
+      if(/(y+)/.test(fmt)) {
+          fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+      }
+      for(var k in o) {
+          if(new RegExp("("+ k +")").test(fmt)){
+              fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+          }
+      }
+      return fmt;
+  };
+  (function ($) {
+      $.getUrlParam = function (name) {
+          var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+          var r = window.location.search.substr(1).match(reg);
+          if (r != null) return decodeURI(r[2]);  return null;
+      }
+  })(jQuery);
+  var hostId=$.getUrlParam("hostId");
+  var a= new Vue({
+    el: '#main',
+    data: function() {
+      return {
+          bgloading:true,
+          mainData:{},
+          bgshow:false,
+          eara:"",
+          earas:[{lable:"石龙仔",value:"0"},
+              {lable:"光明", value:1},
+              {lable:"惠州", value:2}],
+          hosttype:"",
+          hosttypes:[{lable:"联想",value:"0"},
+              {lable:"戴尔", value:1},
+              {lable:"苹果", value:2}],
+          osty:"",
+          ostys:[{lable:"windows",value:"0"},
+              {lable:"Linux", value:1}]
+      }
+    },
+mounted: function () {
+    this.getMess();
+
+
+},
+    methods: {
+        getMess:function () {
+            console.log("aa");
+            var vm=this;
+            $.ajax({
+                type:"post",
+                url:"http://appinter.sunwoda.com/common/host/hostinfo.json",
+                dataType:"json",
+                data: {"token":token,"hostId":hostId},
+                success:function(data){
+                    console.log(data);
+                    vm.mainData=data.dataInfo.singleData;
+                }  ,
+                error:function () {
+                    vm.$message( {type: 'error',message: '获取失败!'});
+                },
+                complete:function () {
+                    vm.bgloading=false
+                }
+
+            });
+        },
+        getPassWord:function () {
+            let vm = this;
+            this.$prompt('请输入查询密码', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                inputType:"password",
+                inputPlaceholder:"密码为薪资查询密码",
+                inputValidator:function () {
+                    $(".el-message-box__input input").attr('type',"password");
+                    var pattern=/[a-z]/ig;
+                    var a=$(".el-message-box__input input")[0].value.match(pattern);
+                    console.log($(".el-message-box__input input")[0].value);
+                    if(a!=null){
+                        return "不能输入非数字"
+                    }
+                    if($(".el-message-box__input input")[0].value.length<6){
+                        return "输入的位数不够"
+                    }
+                    if($(".el-message-box__input input")[0].value.length>6){
+                        return "输入的位数超过"
+                    }
+
+                },
+            }).then(({ value }) => {
+                this.$message({
+                type: 'success',
+                message: '你的密码是: ' + value
+            });
+        }).catch(() => {
+                this.$message({
+                type: 'info',
+                message: '取消输入'
+            });
+        });
+
+        },
+        closeBg:function () {
+            let  vm = this;
+            $("#bghidden").animate({height:"0"},"slow",function(){
+                vm.bgshow=false;});
+        },
+        bgShow:function (i) {
+            this.bgshow=true;
+            $("#bghidden").animate({height:"80%"},"slow");
+            console.log(i);
+            if(i==1){
+
+            }
+        }
+    }
+  })
+
+</script>
+
+
+</html>

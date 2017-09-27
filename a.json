@@ -1,0 +1,824 @@
+{
+  "dataInfo": {
+    "listData": [
+      {
+        "id": 2,
+        "expression": "{13888}=1",
+        "host": "192.168.6.252",
+        "flags": "0",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.6.252 aph02项目喷码",
+        "templateid": "13437",
+        "type": "0",
+        "lastchange": "1505897055",
+        "url": "",
+        "hostid": "10143",
+        "triggerid": "14285",
+        "description": "Zabbix agent on 192.168.6.252 aph02项目喷码 is unreachable for 5 minutes",
+        "priority": "3",
+        "value": "0",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "5m",
+            "triggerid": "14285",
+            "functionid": "13888",
+            "itemid": "26415",
+            "function": "nodata"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "expression": "{15176}=1",
+        "host": "192.168.6.253",
+        "flags": "0",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.6.253 pads服务器 虚拟机6.39",
+        "templateid": "13437",
+        "type": "0",
+        "lastchange": "1505897052",
+        "url": "",
+        "hostid": "10218",
+        "triggerid": "15547",
+        "description": "Zabbix agent on 192.168.6.253 pads服务器 虚拟机6.39 is unreachable for 5 minutes",
+        "priority": "3",
+        "value": "0",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "5m",
+            "triggerid": "15547",
+            "functionid": "15176",
+            "itemid": "31572",
+            "function": "nodata"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "expression": "{13790}>5",
+        "host": "192.168.6.204",
+        "flags": "0",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.6.204 smt soa",
+        "templateid": "13435",
+        "type": "0",
+        "lastchange": "1505896572",
+        "url": "",
+        "hostid": "10137",
+        "triggerid": "14187",
+        "description": "Processor load is too high on 192.168.6.204 smt soa",
+        "priority": "3",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "5m",
+            "triggerid": "14187",
+            "functionid": "13790",
+            "itemid": "25811",
+            "function": "avg"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "expression": "{14766}=1",
+        "host": "192.168.6.54",
+        "flags": "0",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.6.54 mes 测试 虚拟机",
+        "templateid": "13437",
+        "type": "0",
+        "lastchange": "1505894070",
+        "url": "",
+        "hostid": "10189",
+        "triggerid": "15137",
+        "description": "Zabbix agent on 192.168.6.54 mes 测试 虚拟机 is unreachable for 5 minutes",
+        "priority": "3",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "5m",
+            "triggerid": "15137",
+            "functionid": "14766",
+            "itemid": "30017",
+            "function": "nodata"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "expression": "{15526}=1",
+        "host": "145ekp",
+        "flags": "0",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "ekp1",
+        "templateid": "10047",
+        "type": "0",
+        "lastchange": "1505702550",
+        "url": "",
+        "hostid": "10238",
+        "triggerid": "15870",
+        "description": "Zabbix agent on ekp1 is unreachable for 5 minutes",
+        "priority": "3",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "5m",
+            "triggerid": "15870",
+            "functionid": "15526",
+            "itemid": "33272",
+            "function": "nodata"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "expression": "{15497}=0",
+        "host": "172.30.7.222",
+        "flags": "0",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "172.30.7.222数据库",
+        "templateid": "0",
+        "type": "0",
+        "lastchange": "1504777866",
+        "url": "",
+        "hostid": "10237",
+        "triggerid": "15841",
+        "description": "IMAP service is down on 172.30.7.222数据库",
+        "priority": "3",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "#3",
+            "triggerid": "15841",
+            "functionid": "15497",
+            "itemid": "33186",
+            "function": "max"
+          }
+        ]
+      },
+      {
+        "id": 0,
+        "expression": "{14178}<20",
+        "host": "192.168.4.248",
+        "flags": "4",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.4.248 研发中心文件共享",
+        "templateid": "0",
+        "type": "0",
+        "lastchange": "1504490749",
+        "url": "",
+        "hostid": "10156",
+        "triggerid": "14575",
+        "description": "Free disk space is less than 20% on volume F:",
+        "priority": "2",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "0",
+            "triggerid": "14575",
+            "functionid": "14178",
+            "itemid": "27769",
+            "function": "last"
+          }
+        ]
+      },
+      {
+        "id": 0,
+        "expression": "{13610}<20",
+        "host": "192.168.6.248",
+        "flags": "4",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.6.248 mail",
+        "templateid": "0",
+        "type": "0",
+        "lastchange": "1504061050",
+        "url": "",
+        "hostid": "10124",
+        "triggerid": "14007",
+        "description": "Free disk space is less than 20% on volume /home",
+        "priority": "2",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "0",
+            "triggerid": "14007",
+            "functionid": "13610",
+            "itemid": "25330",
+            "function": "last"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "expression": "{15483}=1",
+        "host": "172.60.1.249",
+        "flags": "0",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "172.60.1.249 惠州fileserver",
+        "templateid": "13437",
+        "type": "0",
+        "lastchange": "1502883090",
+        "url": "",
+        "hostid": "10235",
+        "triggerid": "15827",
+        "description": "Zabbix agent on 172.60.1.249 惠州fileserver is unreachable for 5 minutes",
+        "priority": "3",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "5m",
+            "triggerid": "15827",
+            "functionid": "15483",
+            "itemid": "33153",
+            "function": "nodata"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "expression": "{15470}=1",
+        "host": "172.60.1.250",
+        "flags": "0",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "172.60.1.250 惠州AD",
+        "templateid": "13437",
+        "type": "0",
+        "lastchange": "1502883030",
+        "url": "",
+        "hostid": "10234",
+        "triggerid": "15814",
+        "description": "Zabbix agent on 172.60.1.250 惠州AD is unreachable for 5 minutes",
+        "priority": "3",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "5m",
+            "triggerid": "15814",
+            "functionid": "15470",
+            "itemid": "33124",
+            "function": "nodata"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "expression": "{15457}=1",
+        "host": "172.30.201.2",
+        "flags": "0",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "172.30.201.2 光明辅AD",
+        "templateid": "13437",
+        "type": "0",
+        "lastchange": "1502882970",
+        "url": "",
+        "hostid": "10233",
+        "triggerid": "15801",
+        "description": "Zabbix agent on 172.30.201.2 光明辅AD is unreachable for 5 minutes",
+        "priority": "3",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "5m",
+            "triggerid": "15801",
+            "functionid": "15457",
+            "itemid": "33095",
+            "function": "nodata"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "expression": "{15444}=1",
+        "host": "172.30.7.200",
+        "flags": "0",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "172.30.7.200 光明AD",
+        "templateid": "13437",
+        "type": "0",
+        "lastchange": "1502882910",
+        "url": "",
+        "hostid": "10232",
+        "triggerid": "15788",
+        "description": "Zabbix agent on 172.30.7.200 光明AD is unreachable for 5 minutes",
+        "priority": "3",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "5m",
+            "triggerid": "15788",
+            "functionid": "15444",
+            "itemid": "33066",
+            "function": "nodata"
+          }
+        ]
+      },
+      {
+        "id": 0,
+        "expression": "{15435}<20",
+        "host": "192.168.6.120",
+        "flags": "4",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.6.120 fileserver备份",
+        "templateid": "0",
+        "type": "0",
+        "lastchange": "1502874511",
+        "url": "",
+        "hostid": "10230",
+        "triggerid": "15779",
+        "description": "Free disk space is less than 20% on volume E:",
+        "priority": "2",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "0",
+            "triggerid": "15779",
+            "functionid": "15435",
+            "itemid": "33030",
+            "function": "last"
+          }
+        ]
+      },
+      {
+        "id": 0,
+        "expression": "{15436}<20",
+        "host": "192.168.6.120",
+        "flags": "4",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.6.120 fileserver备份",
+        "templateid": "0",
+        "type": "0",
+        "lastchange": "1502874511",
+        "url": "",
+        "hostid": "10230",
+        "triggerid": "15780",
+        "description": "Free disk space is less than 20% on volume F:",
+        "priority": "2",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "0",
+            "triggerid": "15780",
+            "functionid": "15436",
+            "itemid": "33031",
+            "function": "last"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "expression": "{15425}=1",
+        "host": "192.168.6.245 fileserver",
+        "flags": "0",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.6.245 fileserver",
+        "templateid": "13437",
+        "type": "0",
+        "lastchange": "1502872890",
+        "url": "",
+        "hostid": "10228",
+        "triggerid": "15769",
+        "description": "Zabbix agent on 192.168.6.245 fileserver is unreachable for 5 minutes",
+        "priority": "3",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "5m",
+            "triggerid": "15769",
+            "functionid": "15425",
+            "itemid": "32957",
+            "function": "nodata"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "expression": "{15386}=1",
+        "host": "192.168.0.244",
+        "flags": "0",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.0.244 水田辅AD",
+        "templateid": "13437",
+        "type": "0",
+        "lastchange": "1502872650",
+        "url": "",
+        "hostid": "10231",
+        "triggerid": "15730",
+        "description": "Zabbix agent on 192.168.0.244 水田辅AD is unreachable for 5 minutes",
+        "priority": "3",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "5m",
+            "triggerid": "15730",
+            "functionid": "15386",
+            "itemid": "32870",
+            "function": "nodata"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "expression": "{15373}=1",
+        "host": "192.168.6.122",
+        "flags": "0",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.6.122 石龙仔主AD",
+        "templateid": "13437",
+        "type": "0",
+        "lastchange": "1502872590",
+        "url": "",
+        "hostid": "10227",
+        "triggerid": "15717",
+        "description": "Zabbix agent on 192.168.6.122 石龙仔主AD is unreachable for 5 minutes",
+        "priority": "3",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "5m",
+            "triggerid": "15717",
+            "functionid": "15373",
+            "itemid": "32841",
+            "function": "nodata"
+          }
+        ]
+      },
+      {
+        "id": 0,
+        "expression": "{14416}<20",
+        "host": "192.168.240.6",
+        "flags": "4",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.240.6 u9 db2",
+        "templateid": "0",
+        "type": "0",
+        "lastchange": "1502845018",
+        "url": "",
+        "hostid": "10111",
+        "triggerid": "14787",
+        "description": "Free disk space is less than 20% on volume F:",
+        "priority": "2",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "0",
+            "triggerid": "14787",
+            "functionid": "14416",
+            "itemid": "29038",
+            "function": "last"
+          }
+        ]
+      },
+      {
+        "id": 0,
+        "expression": "{13519}<20",
+        "host": "192.168.6.190",
+        "flags": "4",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.6.190",
+        "templateid": "0",
+        "type": "0",
+        "lastchange": "1502178896",
+        "url": "",
+        "hostid": "10120",
+        "triggerid": "13916",
+        "description": "Free disk space is less than 20% on volume /data1",
+        "priority": "2",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "0",
+            "triggerid": "13916",
+            "functionid": "13519",
+            "itemid": "25076",
+            "function": "last"
+          }
+        ]
+      },
+      {
+        "id": 0,
+        "expression": "{15196}<20",
+        "host": "192.168.6.225",
+        "flags": "4",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.6.225 开发服务器",
+        "templateid": "0",
+        "type": "0",
+        "lastchange": "1498267218",
+        "url": "",
+        "hostid": "10209",
+        "triggerid": "15567",
+        "description": "Free disk space is less than 20% on volume D:",
+        "priority": "2",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "0",
+            "triggerid": "15567",
+            "functionid": "15196",
+            "itemid": "31878",
+            "function": "last"
+          }
+        ]
+      },
+      {
+        "id": 0,
+        "expression": "{14264}<20",
+        "host": "192.168.240.6",
+        "flags": "4",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.240.6 u9 db2",
+        "templateid": "0",
+        "type": "0",
+        "lastchange": "1497577333",
+        "url": "",
+        "hostid": "10111",
+        "triggerid": "14635",
+        "description": "Free disk space is less than 20% on volume E:",
+        "priority": "2",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "0",
+            "triggerid": "14635",
+            "functionid": "14264",
+            "itemid": "28393",
+            "function": "last"
+          }
+        ]
+      },
+      {
+        "id": 0,
+        "expression": "{13311}<20",
+        "host": "192.168.6.254",
+        "flags": "4",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.6.254 OA",
+        "templateid": "0",
+        "type": "0",
+        "lastchange": "1496777501",
+        "url": "",
+        "hostid": "10112",
+        "triggerid": "13708",
+        "description": "Free disk space is less than 20% on volume D:",
+        "priority": "2",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "0",
+            "triggerid": "13708",
+            "functionid": "13311",
+            "itemid": "24461",
+            "function": "last"
+          }
+        ]
+      },
+      {
+        "id": 0,
+        "expression": "{15188}<20",
+        "host": "192.168.6.182",
+        "flags": "4",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.6.182 调度平台app2",
+        "templateid": "0",
+        "type": "0",
+        "lastchange": "1495097359",
+        "url": "",
+        "hostid": "10205",
+        "triggerid": "15559",
+        "description": "Free disk space is less than 20% on volume C:",
+        "priority": "2",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "0",
+            "triggerid": "15559",
+            "functionid": "15188",
+            "itemid": "31699",
+            "function": "last"
+          }
+        ]
+      },
+      {
+        "id": 0,
+        "expression": "{14676}<20",
+        "host": "192.168.6.31",
+        "flags": "4",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.6.31 小米ftp(5楼)",
+        "templateid": "0",
+        "type": "0",
+        "lastchange": "1494922603",
+        "url": "",
+        "hostid": "10180",
+        "triggerid": "15047",
+        "description": "Free disk space is less than 20% on volume /",
+        "priority": "2",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "0",
+            "triggerid": "15047",
+            "functionid": "14676",
+            "itemid": "29803",
+            "function": "last"
+          }
+        ]
+      },
+      {
+        "id": 0,
+        "expression": "{14188}<20",
+        "host": "192.168.6.231",
+        "flags": "4",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.6.231  U8",
+        "templateid": "0",
+        "type": "0",
+        "lastchange": "1489041395",
+        "url": "",
+        "hostid": "10160",
+        "triggerid": "14585",
+        "description": "Free disk space is less than 20% on volume E:",
+        "priority": "2",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "0",
+            "triggerid": "14585",
+            "functionid": "14188",
+            "itemid": "27935",
+            "function": "last"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "expression": "{13782}=0",
+        "host": "192.168.6.204",
+        "flags": "0",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.6.204 smt soa",
+        "templateid": "0",
+        "type": "0",
+        "lastchange": "1481721829",
+        "url": "",
+        "hostid": "10137",
+        "triggerid": "14179",
+        "description": "HTTP service is down on 192.168.6.204 smt soa",
+        "priority": "3",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "#3",
+            "triggerid": "14179",
+            "functionid": "13782",
+            "itemid": "25789",
+            "function": "max"
+          }
+        ]
+      },
+      {
+        "id": 0,
+        "expression": "{14887}<20",
+        "host": "192.168.6.71",
+        "flags": "4",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.6.71 aph06 手机应用 app  虚拟机 6.39",
+        "templateid": "0",
+        "type": "0",
+        "lastchange": "1481181686",
+        "url": "",
+        "hostid": "10190",
+        "triggerid": "15258",
+        "description": "Free disk space is less than 20% on volume /",
+        "priority": "2",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "0",
+            "triggerid": "15258",
+            "functionid": "14887",
+            "itemid": "30446",
+            "function": "last"
+          }
+        ]
+      },
+      {
+        "id": 0,
+        "expression": "{14415}<20",
+        "host": "192.168.6.49",
+        "flags": "4",
+        "error": "",
+        "status": "0",
+        "state": "0",
+        "hostname": "192.168.6.49 02认证",
+        "templateid": "0",
+        "type": "0",
+        "lastchange": "1471498734",
+        "url": "",
+        "hostid": "10128",
+        "triggerid": "14786",
+        "description": "Free disk space is less than 20% on volume E:",
+        "priority": "2",
+        "value": "1",
+        "comments": "",
+        "functions": [
+          {
+            "parameter": "0",
+            "triggerid": "14786",
+            "functionid": "14415",
+            "itemid": "29034",
+            "function": "last"
+          }
+        ]
+      }
+    ],
+    "pageInfo": null,
+    "singleData": null
+  },
+  "extData": 28,
+  "message": "操作成功",
+  "statusCode": 0,
+  "rightButtons": null
+}

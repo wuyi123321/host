@@ -1,0 +1,99 @@
+#main{
+    font-size: 0.25rem;
+}
+#main .title{
+    height: 40px;
+    background: #eeeeee;
+    align-items: center;
+    display: flex;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+#main .title .title_name{
+  width: 80px;
+}
+#main .title .icon{
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    color: #049588;
+}
+#main .content ul li{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: solid #eeeeee 1px;
+}
+#main .content ul li .name{
+    width: 100px;
+    margin-left: 8px;
+}
+#main .content ul li .value{
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    color: #555;
+    margin-right: 10px;
+}
+.el-message-box{
+    width: 90%;
+}
+#main .bghidden{
+     position: fixed;
+     z-index: 999;
+     top: 0;
+     left: 0;
+     background: rgba(240,240, 240, 0.5);
+     width: 100%;
+     height: 100%;
+     overflow: hidden;
+ }
+#main .bghidden .cont{
+    padding-top: 20px;
+    max-width: 100%;
+    max-height: 80%;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 1000;
+}
+#main .bghidden .cont .title{
+    width: 100%;
+    justify-content: center;
+}
+.el-select {
+    width: 100%;
+}
+#main .bghidden .cont .bottom{
+    width: 100%;
+    text-align: center;
+    margin-top: 10px ;
+}
+#main .bgloading{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(200,200,200,0.5);
+    z-index: 9999;
+}
+#main .bgloading .con{
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}

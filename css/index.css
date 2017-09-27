@@ -1,0 +1,121 @@
+#main{
+    font-size: 0.25rem;
+}
+#main .top{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    display: flex;
+    height: 40px;
+    z-index: 99;
+}
+#main .top .item{
+    flex: 1;
+    border-bottom: solid 1px #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#main .top .item:hover{
+  background: #eee;
+}
+#main .content{
+    width: 100%;
+    position: absolute;
+    top: 41px;
+}
+#main .content ul li{
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    border-bottom: solid #eeeeee 1px;
+}
+#main .content ul li .name{
+    flex:1;
+    margin-left: 8px;
+}
+#main .content ul li .icon{
+    width: 20px;
+    font-size: 0.2rem;
+    color: #aaa;
+}
+#main .bghidden{
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    background: rgba(240,240, 240, 0.5);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+#main .but{
+    display: flex;
+    position: fixed;
+    z-index: 1000;
+    bottom: 80px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #049588;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 0.4rem;
+    box-shadow: #777 0px 1px 10px 1px;
+}
+#main .bghidden .cont{
+    position: absolute;
+    bottom: 150px;
+    right:40px;
+    height: 0;
+}
+#main .bghidden .cont span{
+    margin-right: 10px;
+    padding: 5px;
+    background: #555;
+    color: #fff;
+}
+#main .bghidden .cont .item{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height:50px;
+}
+#main .bghidden .cont .item .som{
+    display: flex;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #049588;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    box-shadow: #999 0px 1px 10px 1px;
+}
+#main .bgloading{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(200,200,200,0.5);
+    z-index: 9999;
+}
+#main .bgloading .con{
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}

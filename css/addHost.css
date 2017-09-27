@@ -1,0 +1,107 @@
+#main{
+    font-size: 0.25rem;
+}
+#main .title{
+    font-size: 0.3rem;
+    height:40px;
+    border-bottom: solid 1px #eee;
+    text-align: center;
+    line-height: 40px;
+    color: #555;
+}
+
+.el-input__inner{
+    border: none;
+}
+#main .step{
+    margin-top: 10px;
+}
+#main  .write_base .title{
+    background: #eee;
+    font-size: 0.25rem;
+    position: relative;
+}
+#main  .write_base .addItem{
+    position: absolute;
+    bottom: 8px;
+    right: 10px;
+    display: flex;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #049588;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.22rem;
+}
+#main .content{
+    position: relative;
+}
+#main .content .item{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    border-bottom: solid 1px #eee;
+    align-items: center;
+}
+.el-icon-minus:before{
+    padding: 10px;
+}
+#main .content .item .el-key{
+    margin-left: 15px;
+    width: 100px;
+    color: #049588;
+}
+#main .content .item .el-value{
+    flex: 1;
+    margin-right: 10px;
+}
+#main .content .item .el-value select{
+    width: 100%;
+    height: 30px;
+    border: none;
+    padding: 3px 10px;
+}
+#main .content .item .el-value select:focus{
+    border: none;
+}
+#main .content .item input{
+    border: none;
+    height: 30px;
+    padding: 3px 10px;
+}
+#main .bgloading{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(200,200,200,0.5);
+    z-index: 9999;
+}
+#main .bgloading .con{
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+.el-step__head.is-text.is-success {
+    color: #fff;
+    background-color: #049588;
+    border-color: #049588;
+}
+.el-step__title.is-success{
+    color: #049588;
+}
+.el-button:focus, .el-button:hover {
+    color:#049588;
+    border-color: #049588;
+}

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>服务器状态</title>
+    <meta name="generator" content="editplus" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=no, width=device-width">
+    <meta name="author" content="" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+</head>
+<link rel="stylesheet" href="css/comcss.css" type="text/css" />
+<link rel="stylesheet" href="css/eleui.css" type="text/css" />
+<style>
+    .el-collapse-item__wrap{
+        background: #eefeee;
+    }
+</style>
+<body>
+<div id="main">
+    <div style="font-size: 0.3rem;width: 100%;text-align: center;height: 30px;line-height: 30px">{{time}}</div>
+    <el-collapse accordion>
+        <el-collapse-item v-for="item in mainData">
+            <template slot="title">
+                {{item.hostname}}<el-button type="warning" size="small" v-if="item.priority==2" style="position: absolute;right: 5px;margin-top: 8px">警告</el-button>
+                <el-button type="danger"v-if="item.priority==3" size="small" style="position: absolute;right: 5px;margin-top: 8px">危险</el-button>
+            </template>
+            <div>{{item.description}}</div>
+            <div><span style="color: #000">上次修改时间:</span> {{item.lastchange}}</div>
+        </el-collapse-item>
+    </el-collapse>
+
+
+</div>
+
+</body>
+<script src="comjs/comjs.js"></script>
+<script src="comjs/jquery.js"></script>
+<script src="comjs/vue@2.4.js"></script>
+<script src="comjs/elejs.js"></script>
+<script>
+    new Date().getSeconds()
+
+  var token="dcf88e4b2976b6c4eb50e65b27390552";
+  function getFileUrl(inputid,i) {
+    console.log(document.getElementById(inputid).files[i]);
+    var url;
+    if (navigator.userAgent.indexOf("MSIE")>=1) { // IE
+      url = document.getElementById("inputfile").value;
+    } else if(navigator.userAgent.indexOf("Firefox")>0) { // Firefox
+      url = window.URL.createObjectURL(document.getElementById(inputid).files.item(i));
+    } else if(navigator.userAgent.indexOf("Chrome")>0) { // Chrome
+      url = window.URL.createObjectURL(document.getElementById(inputid).files.item(i));
+    }else {
+      url = window.webkitURL.createObjectURL(document.getElementById(inputid).files[i]);
+    }
+    return url;
+  }
+  Date.prototype.format = function(fmt) {
+      var o = {
+          "M+" : this.getMonth()+1,                 //月份
+          "d+" : this.getDate(),                    //日
+          "h+" : this.getHours(),                   //小时
+          "m+" : this.getMinutes(),                 //分
+          "s+" : this.getSeconds(),                 //秒
+          "q+" : Math.floor((this.getMonth()+3)/3), //季度
+          "S"  : this.getMilliseconds()             //毫秒
+      };
+      if(/(y+)/.test(fmt)) {
+          fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+      }
+      for(var k in o) {
+          if(new RegExp("("+ k +")").test(fmt)){
+              fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+          }
+      }
+      return fmt;
+  }
+  setInterval(function () {
+      a.num=a.num+1000;
+      a.time=new Date(a.num).format("yyyy-MM-dd hh:mm:ss");
+  },1000);
+  var a= new Vue({
+    el: '#main',
+    data: function() {
+      return {
+       mainData:[],
+       time:"",
+       num:0
+      }
+    },
+mounted: function () {
+    this.num =new Date().valueOf();
+    this.time=new Date(this.num).format("yyyy-MM-dd hh:mm:ss");
+    this.getMess();
+   console.log(new  Date(1502872590));
+},
+    methods: {
+        getMess:function () {
+            console.log("aa");
+            var vm=this;
+            $.ajax({
+                type:"post",
+                url:"http://appinter.sunwoda.com/zabbix/findTrigger.json",
+                dataType:"json",
+                data: {"token":token},
+                success:function(data){
+                    console.log(data)
+                    vm.mainData=data.dataInfo.listData;
+                  for(var i=0;i<data.dataInfo.listData.length;i++){
+                      vm.mainData[i].lastchange=new Date(parseInt(data.dataInfo.listData[i].lastchange)*1000).format("yyyy-MM-dd hh:mm:ss");
+                  }
+                }  ,
+                error:function () {
+                    vm.$message( {type: 'error',message: '获取失败!'});
+                },
+
+
+            });
+        }
+    }
+  })
+  setInterval(function () {
+      a.getMess()
+  },5000);
+</script>
+
+
+</html>

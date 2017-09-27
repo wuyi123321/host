@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加服务器</title>
+    <meta name="generator" content="editplus" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=no, width=device-width">
+    <meta name="author" content="" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+</head>
+<link rel="stylesheet" href="css/comcss.css" type="text/css" />
+<link rel="stylesheet" href="css/eleui.css" type="text/css" />
+<link rel="stylesheet" href="css/addHost.css" type="text/css" />
+<style>
+    .el-collapse-item__wrap{
+        background: #eefeee;
+    }
+</style>
+<body>
+<div id="main">
+    <div class="title">添加新服务器</div>
+    <!--步骤模块-->
+    <div class="step">
+        <el-steps space="30%" :active="active" finish-status="success" center>
+            <el-step title="步骤 1" ></el-step>
+            <el-step title="步骤 2"></el-step>
+            <el-step title="步骤 3"></el-step>
+            <el-step title="步骤 4"></el-step>
+        </el-steps>
+    </div>
+
+    <!--基本信息填写模块-->
+    <div class="write_base" v-show="base">
+        <div class="title">主要信息填写:</div>
+        <div class="content">
+            <div class="item">
+                <div class="el-key">主机ip:</div>
+                <div class="el-value" > <el-input placeholder="请填写主机IP" v-model="ip"></el-input></div>
+            </div>
+            <div class="item">
+            <div class="el-key">父主机ip:</div>
+            <div class="el-value" >  <el-input placeholder="请填写父主机IP" v-model="parentIp"></el-input> </div>
+        </div>
+            <div class="item">
+                <div class="el-key">是否虚拟机:</div>
+                <div class="el-value" > <el-radio  v-model="isVirtualMachine" label="1">是</el-radio>
+                    <el-radio  v-model="isVirtualMachine" label="0">否</el-radio></div>
+            </div>
+            <div class="item">
+                <div class="el-key">主机名称:</div>
+                <div class="el-value" > <el-input placeholder="请填写主机名称" v-model="hostName"></el-input></div>
+            </div>
+            <div class="item">
+                <div class="el-key">地区:</div>
+                <div class="el-value" > <el-select v-model="eara" placeholder="请选择" >
+                    <el-option
+                            v-for="item in earas"
+                            :key="item.areaId"
+                            :label="item.areaName"
+                            :value="item.areaId">
+                    </el-option>
+                </el-select></div>
+            </div>
+            <div class="item">
+                <div class="el-key">主机类型:</div>
+                <div class="el-value" > <el-select v-model="hosttype" placeholder="请选择" >
+                    <el-option
+                            v-for="item in hosttypes"
+                            :key="item.hostTypeId"
+                            :label="item.typeName"
+                            :value="item.hostTypeId">
+                    </el-option>
+                </el-select></div>
+            </div>
+            <div class="item">
+                <div class="el-key">操作系统:</div>
+                <div class="el-value" > <el-select v-model="osty" placeholder="请选择" >
+                    <el-option
+                            v-for="item in ostys"
+                            :key="item.osId"
+                            :label="item.osName"
+                            :value="item.osId">
+                    </el-option>
+                </el-select></div>
+            </div>
+            <div class="item">
+                <div class="el-key">资产编号:</div>
+                <div class="el-value" > <el-input placeholder="请填写资产编号" v-model="assetNo"></el-input></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--其他信息填写模块-->
+    <div class="write_base" v-show="add">
+        <div class="title">补充信息填写</div>
+        <div class="content">
+            <div class="item">
+                <div class="el-key">位置:</div>
+                <div class="el-value" > <el-input placeholder="请填写放置位置" v-model="location"></el-input></div>
+            </div>
+            <div class="item">
+                <div class="el-key">硬件说明:</div>
+                <div class="el-value" > <el-input placeholder="请填写硬件说明" v-model="hardware"></el-input></div>
+            </div>
+            <div class="item">
+                <div class="el-key">标签:</div>
+                <div class="el-value" > <el-select v-model="brandId" placeholder="请选择" >
+                    <el-option
+                            v-for="item in brands"
+                            :label="item.brandName"
+                            :value="item.brandId">
+                    </el-option>
+                </el-select></div>
+            </div>
+
+        </div>
+        <div class="title">完善信息填写:</div>
+        <div class="content">
+            <div class="item">
+                <div class="el-key">管理员:</div>
+                <div class="el-value" > <el-input placeholder="请填写管理员" v-model="adminUser"></el-input></div>
+            </div>
+            <div class="item">
+                <div class="el-key">管理员电话:</div>
+                <div class="el-value" > <el-input placeholder="请填写管理员电话" v-model="adminTel"></el-input></div>
+            </div>
+            <div class="item">
+                <div class="el-key">服务器描述:</div>
+                <div class="el-value" > <el-input placeholder="请填写服务器描述"  type="textarea" v-model="hostDesc"></el-input></div>
+            </div>
+            <div class="item">
+                <div class="el-key">硬件详情:</div>
+                <div class="el-value" > <el-input placeholder="请填写硬件详情"  v-model="hardwareDetail"  type="textarea"></el-input></div>
+            </div>
+        </div>
+    </div>
+
+    <!--密钥模块-->
+    <form name="pwd">
+        <div class="write_base" v-show="all" id="miyao" @click="removeItem">
+            <div class="title">秘钥信息填写
+                <div class="addItem" @click="addItem"><i class="el-icon-plus"></i></div>
+            </div>
+            <div style="padding:5px 10px;color: #555;border-bottom: solid 1px #eee">秘钥信息</div>
+            <div class="content">
+                <div class="item">
+                    <div class="el-key">账户类型</div>
+                    <div class="el-value" > <el-select placeholder="请选择" v-model="accounttype">
+                        <el-option
+                                v-for="item in accounttypes"
+                                :label="item.accountName"
+                                :value="item.accountType">
+                        </el-option>
+                    </el-select></div>
+                </div>
+                <div class="item">
+                    <div class="el-key">账户名</div>
+                    <div class="el-value" ><el-input placeholder="请填写账户" v-model="pwdname"></el-input></div>
+                </div>
+                <div class="item">
+                    <div class="el-key">登录密码</div>
+                    <div class="el-value" > <el-input placeholder="请填写密码" type="password"></el-input></div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!--软件模块-->
+    <form name="softs">
+        <div class="write_base" v-show="soft" id="soft" @click="removeItem">
+            <div class="title">软件信息填写
+                <div class="addItem" @click="addsoft"><i class="el-icon-plus"></i></div>
+            </div>
+            <div style="padding:5px 10px;color: #555;border-bottom: solid 1px #eee">软件信息</div>
+            <div class="content">
+                <div class="item">
+                    <div class="el-key">软件名</div>
+                    <div class="el-value" ><el-input placeholder="请填写软件名称" v-model="softName" ></el-input></div>
+                </div>
+                <div class="item">
+                    <div class="el-key">版本</div>
+                    <div class="el-value" ><el-input placeholder="请填写软件版本" ></el-input></div>
+                </div>
+                <div class="item">
+                    <div class="el-key">端口</div>
+                    <div class="el-value" ><el-input placeholder="请填写软件端口" ></el-input></div>
+                </div>
+                <div class="item">
+                    <div class="el-key">软件路径</div>
+                    <div class="el-value" ><el-input placeholder="请填写软件路径"></el-input></div>
+                </div>
+                <div class="item">
+                    <div class="el-key">添加者</div>
+                    <div class="el-value" ><el-input placeholder="请填写添加者姓名"></el-input></div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!--底部按钮模块-->
+    <div style="margin-top: 12px;margin-left: 10px">
+        <el-button  @click="next">下一步</el-button>
+        <el-button v-show="subshow" style="background: #049588;color: #fff" @click="submess">提交</el-button>
+    </div>
+
+    <!--请求信息遮罩-->
+    <div class="bgloading" v-show="bgloading">
+        <div class="con" >
+            数据加载中<i class="el-icon-loading"></i>
+        </div>
+    </div>
+
+</div>
+
+</body>
+<script src="comjs/comjs.js"></script>
+<script src="comjs/jquery.js"></script>
+<script src="comjs/vue@2.4.js"></script>
+<script src="comjs/elejs.js"></script>
+<script>
+    (function ($) {
+        $.getUrlParam = function (name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);  return null;
+        }
+    })(jQuery);
+    var token= $.getUrlParam("token");
+    Date.prototype.format = function(fmt) {
+        var o = {
+            "M+" : this.getMonth()+1,                 //月份
+            "d+" : this.getDate(),                    //日
+            "h+" : this.getHours(),                   //小时
+            "m+" : this.getMinutes(),                 //分
+            "s+" : this.getSeconds(),                 //秒
+            "q+" : Math.floor((this.getMonth()+3)/3), //季度
+            "S"  : this.getMilliseconds()             //毫秒
+        };
+        if(/(y+)/.test(fmt)) {
+            fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+        }
+        for(var k in o) {
+            if(new RegExp("("+ k +")").test(fmt)){
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+            }
+        }
+        return fmt;
+    };
+    var a= new Vue({
+        el: '#main',
+        data: function() {
+            return {
+                bgloading:true,
+                subshow:false,
+                base:true,
+                add:false,
+                all:false,
+                soft:false,
+                active: 0,
+                isVirtualMachine:0,
+                ip:"",
+                assetNo:"",
+                pwdname:"",
+                softName:"",
+                parentIp:"",
+                hostName:"",
+                eara:1,
+                earas: [
+                    {
+                        "areaId": 1,
+                        "areaName": "石龙仔"
+                    },
+                    {
+                        "areaId": 2,
+                        "areaName": "光明"
+                    },
+                    {
+                        "areaId": 3,
+                        "areaName": "惠州圆洲"
+                    }
+                ],
+                hosttype:1,
+                hosttypes: [
+                    {
+                        "hostTypeId": 1,
+                        "typeName": "服务器"
+                    },
+                    {
+                        "hostTypeId": 2,
+                        "typeName": "存储"
+                    },
+                    {
+                        "hostTypeId": 3,
+                        "typeName": "存储交换机"
+                    },
+                    {
+                        "hostTypeId": 4,
+                        "typeName": "交换机"
+                    }
+                ],
+                osty:"",
+                ostys:[
+                    {
+                        "osId": 1,
+                        "odType": 1,
+                        "osName": "oracle linux 6",
+                        "osTypeName": "linux"
+                    },
+                    {
+                        "osId": 2,
+                        "odType": 1,
+                        "osName": "centos 6",
+                        "osTypeName": "linux"
+                    },
+                    {
+                        "osId": 3,
+                        "odType": 1,
+                        "osName": "centos 7",
+                        "osTypeName": "linux"
+                    },
+                    {
+                        "osId": 4,
+                        "odType": 1,
+                        "osName": "suse 11",
+                        "osTypeName": "linux"
+                    },
+                    {
+                        "osId": 5,
+                        "odType": 2,
+                        "osName": "windows 2012",
+                        "osTypeName": "windows"
+                    },
+                    {
+                        "osId": 6,
+                        "odType": 2,
+                        "osName": "windows 2008 r2",
+                        "osTypeName": "windows"
+                    },
+                    {
+                        "osId": 7,
+                        "odType": 2,
+                        "osName": "windows 2003 64",
+                        "osTypeName": "windows"
+                    },
+                    {
+                        "osId": 8,
+                        "odType": 2,
+                        "osName": "windows 2003 32",
+                        "osTypeName": "windows"
+                    }
+                ],
+                hostDesc:"",
+                location:"",
+                hardware:"",
+                hardwareDetail:"",
+                adminUser:"",
+                adminTel:"",
+                brandId:"",
+                brands:[
+                    {brandId: 1, brandName: "联想"},
+                    {brandId: 2, brandName: "IBM"},
+                    {brandId: 3, brandName: "博科"}],
+                accounttype:"",
+                accounttypes:[
+                    {accountType: 1, accountName: "操作系统"},
+                    {accountType: 2, accountName: "数据库"},
+                    {accountType: 3, accountName: "FTP"}]
+            }
+        },
+        mounted: function () {
+            this.getMess();
+        },
+        methods: {
+//获取下拉列表信息
+            getMess:function () {
+                console.log("aa");
+                var vm=this;
+                $.ajax({
+                    type:"post",
+                    url:"http://appinter.sunwoda.com/common/host/hostutil.json",
+                    dataType:"json",
+                    data: {"token":token},
+                    beforeSend:function () {
+                        vm.bgloading=true
+                    },
+                    success:function(data){
+                        console.log(data);
+                        if(data.dataInfo){
+                            vm.earas=data.dataInfo.singleData.areas;
+                            vm.hosttypes=data.dataInfo.singleData.hostTypes;
+                            vm.ostys=data.dataInfo.singleData.itOs;
+                            vm.accounttypes=data.dataInfo.singleData.accounttypes;
+                            vm.brands=data.dataInfo.singleData.itBrands;
+                        }
+                    }  ,
+                    error:function () {
+                        vm.$message( {type: 'error',message: '获取失败!'});
+                    },
+                    complete:function () {
+                        vm.bgloading=false
+                    }
+                });
+            },
+
+//下一步点击函数
+            next:function() {
+                this.active++;
+                if(this.active==1){
+                    this.base=false;
+                    this.add=true;
+                    this.all=false;
+                    this.soft=false;
+                }
+                if(this.active==2){
+                    this.base=false;
+                    this.add=false;
+                    this.all=true;
+                    this.soft=false;
+
+                }
+                if(this.active==3){
+                    this.base=false;
+                    this.add=false;
+                    this.all=false;
+                    this.soft=true;
+                    this.subshow=true
+                }
+                if(this.active>3){
+                    this.active=0;
+                    this.base=true;
+                    this.add=false;
+                    this.all=false;
+                    this.soft=false;
+                    this.subshow=true
+                }
+
+            },
+
+
+//添加密钥信息
+            addItem:function () {
+                var option="";
+                for(let i=0;i<this.accounttypes.length;i++){
+                    option+="<option value='"+this.accounttypes[i].accountType+"'>"+this.accounttypes[i].accountName+"</option>"
+                }
+                $("#miyao").append(
+                    "      <div><div style='padding:5px 10px;color: #555;border-bottom: solid 1px #eee'>秘钥信息</div>" +
+                    "        <div class='content'> "+
+                    "            <div class='item'>" +
+                    "                <div class='el-key'>账户类型</div>" +
+                    "                <div class='el-value' > <select>"+option+"</select></div>" +
+                    "            </div>" +
+                    "            <div class='item'>" +
+                    "                <div class='el-key'>账户名</div>" +
+                    "                <div class='el-value' > <input placeholder='请填写账户' ></input></div>" +
+                    "            </div>" +
+                    "            <div class='item'>" +
+                    "                <div class='el-key'>登录密码</div>" +
+                    "                <div class='el-value' > <input placeholder='请填写密码' type='password'></input></div>" +
+                    "            </div>" +
+                    "            <div class='addItem'><i class='el-icon-minus'></i></div>"+
+                    "</div></div>");
+            },
+
+
+//添加软件信息
+            addsoft:function () {
+                $("#soft").append(
+                    "      <div><div style='padding:5px 10px;color: #555;border-bottom: solid 1px #eee'>软件信息</div>" +
+                    "        <div class='content'> "+
+                    "            <div class='item'>" +
+                    "                <div class='el-key'>软件名</div>" +
+                    "                <div class='el-value' > <input placeholder='请填写软件名' ></input></div>" +
+                    "            </div>" +
+                    "            <div class='item'>" +
+                    "                <div class='el-key'>版本</div>" +
+                    "                <div class='el-value' > <input placeholder='请填写软件版本' ></input></div>" +
+                    "            </div>" +
+                    "            <div class='item'>" +
+                    "                <div class='el-key'>端口</div>" +
+                    "                <div class='el-value' > <input placeholder='请填写软件端口' ></input></div>" +
+                    "            </div>" +
+                    "            <div class='item'>" +
+                    "                <div class='el-key'>软件路径</div>" +
+                    "                <div class='el-value' > <input placeholder='请填写软件路径' ></input></div>" +
+                    "            </div>" +
+                    "            <div class='item'>" +
+                    "                <div class='el-key'>添加者</div>" +
+                    "                <div class='el-value' > <input placeholder='请填写添加者姓名' ></input></div>" +
+                    "            </div>" +
+                    "            <div class='addItem'><i class='el-icon-minus'></i></div>"+
+                    "</div></div>");
+            },
+
+
+//点击移除事件（添加的软件信息||密钥信息删除）
+            removeItem:function (event) {
+                if(event.target.className=="el-icon-minus"){
+                    console.log( event.target.parentNode.parentNode.parentNode)
+                    event.target.parentNode.parentNode.parentNode.innerHTML=""
+                }
+
+            },
+
+ //进行表单提交
+            submess:function () {
+
+                let vm = this;
+                //获取秘钥信息集合
+                var item = {
+                    accountType:"",
+                    userName:"",
+                    password:""
+                };
+                var pwd=[];
+                for(var i=0;i< document.forms["pwd"].length;i++){
+                    if((i+1)%3==1){
+                        if(i==0){
+                            item.accountType=vm.accounttype;
+                        }else {
+                            item.accountType=document.forms["pwd"][i].value
+                        }
+                    }
+                    if((i+1)%3==2){
+                        item.userName=document.forms["pwd"][i].value
+                    }
+                    if((i+1)%3==0){
+                        item.password=document.forms["pwd"][i].value
+                        pwd.push(item);
+                        item=new Object({
+                            accountType:"",
+                            userName:"",
+                            password:""
+                        });
+                    }
+                }
+//------------------------------------------------------------------------------------
+
+//获取软件信息集合
+                var softs=[];
+                var soft={
+                    software:"",
+                    softwareVersion:"",
+                    port:"",
+                    softwarePath:"",
+                    addUser:""
+                };
+                for(var i=0;i< document.forms["softs"].length;i++){
+                    if((i+1)%5==1){
+                        soft.software=document.forms["softs"][i].value
+                    }
+                    if((i+1)%5==2){
+                        soft.softwareVersion=document.forms["softs"][i].value
+                    }
+                    if((i+1)%5==3){
+                        soft.port=document.forms["softs"][i].value
+                    }
+                    if((i+1)%5==4){
+                        soft.softwarePath=document.forms["softs"][i].value
+                    }
+                    if((i+1)%5==0){
+                        soft.addUser=document.forms["softs"][i].value
+                        softs.push(soft)
+                        soft=new Object({
+                            software:"",
+                            softwareVersion:"",
+                            port:"",
+                            softwarePath:"",
+                            addUser:""
+                        });
+                    }
+                }
+//--------------------------------------------------------------------------------------
+                console.log(pwd);
+                console.log(softs);
+
+                if( this.pwdname==""){
+                    pwd=[]
+                }
+                if(this.softName==""){
+                    softs=[]
+                }
+                //提交数据封装
+                var jsondata={
+                    ip:vm.ip,
+                    parentIp:vm.parentIp,
+                    hostName:vm.hostName,
+                    areaId:vm.eara,
+                    hosttypeId:vm.hosttype,
+                    hostDesc:vm.hostDesc,
+                    osId:vm.osty,
+                    location:vm.location,
+                    hardware:vm.hardware,
+                    hardwareDetail:vm.hardwareDetail,
+                    adminUser:vm.adminUser,
+                    adminTel:vm.adminTel,
+                    brandId:vm.brandId,
+                   isVirtualMachine:vm.isVirtualMachine,
+                    assetNo:vm.assetNo,
+//                    supplyId:"",
+//                    addTime:"",
+//                    addUser:"",
+//                    updTime:"",
+//                    updUser:"",
+//                    buydate:"",
+//                    setupDate:"",
+                    accountlist:pwd,
+                    softwarelist:softs
+                };
+                var parame={
+                    token:token,
+                    jsondata:JSON.stringify(jsondata)
+                };
+                console.log(jsondata);
+
+                $.ajax({
+                    type:"post",
+                    url:"http://appinter.sunwoda.com/common/host/addhost.json",
+                    dataType:"json",
+                    data: parame,
+                    beforeSend:function () {
+                        vm.bgloading=true
+                    },
+                    success:function(data){
+                        console.log(data);
+                        if(data.message=="操作成功"){
+                            vm.$message( {type: 'success',message:data.message});
+                        }
+                        else {
+                            vm.$message( {type: 'error',message:data.message});
+                        }
+                    },
+                    error:function () {
+                        vm.$message( {type: 'error',message: '请求失败!'});
+                    },
+                    complete:function () {
+                        vm.bgloading=false
+                    }
+
+                });
+
+            }
+        }
+    });
+
+
+</script>
+
+
+</html>
