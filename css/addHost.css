@@ -1,5 +1,5 @@
 #main{
-    font-size: 0.25rem;
+    font-size: 0rem;
 }
 #main .title{
     font-size: 0.3rem;
@@ -37,6 +37,7 @@
 }
 #main .content{
     position: relative;
+    font-size: 0.25rem;
 }
 #main .content .item{
     padding-top: 5px;
@@ -103,5 +104,20 @@
 }
 .el-button:focus, .el-button:hover {
     color:#049588;
+    border-color: #049588;
+}
+.el-select-dropdown__item.selected {
+    color: #fff;
+    background-color: #049588;
+}
+.el-select-dropdown__item.selected.hover {
+    background-color: #049588;
+}
+.el-radio__input.is-checked .el-radio__inner {
+    border-color: #049588;
+    background:  #049588;
+}
+.el-textarea__inner:focus {
+    outline: 0;
     border-color: #049588;
 }

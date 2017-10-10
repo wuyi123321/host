@@ -17,34 +17,31 @@
 <body>
 <div id="main">
     <div class="top">
-        <div class="item">全部</div>
-        <div class="item">Mas</div>
-        <div class="item">邮件</div>
-        <div class="item">交换机</div>
-        <div class="item">三楼机房</div>
+        <div class="item" @click="getNewM(-1)">全部</div>
+        <div class="item" v-for="(item,n) in Brans" @click="getNewM(n)" >{{item.brandName}}</div>
     </div>
-   <div class="content">
+    <div class="content">
        <ul >
            <li v-for="item in mainData"  @click="getItMessage(item.hostId)">
-               <div class="name">{{item.hostName}}</div>
+               <div class="name">{{item.hostName}} {{item.ip}}</div>
                <div class="icon"><i class="el-icon-arrow-right "></i></div>
            </li>
        </ul>
    </div>
     <div class="but" @click="butClic"><img src="images/ic_menu.png" width="25" height="25"></div>
     <!--遮罩层-->
-   <div class="bghidden" v-show="bgshow">
+    <div class="bghidden" v-show="bgshow">
        <div class="cont" id="cont">
            <div class="item" @click="goaddHost"><span>添加服务器</span><div class="som"><i class="icon-plus"></i></div></div>
            <div class="item" @click="gostatus" ><span>易错服务器</span><div class="som"><i class="icon-warning-sign"></i></div></div>
        </div>
    </div>
 <!--加载显示-->
-    <div class="bgloading" v-show="bgloading">
+     <div class="bgloading" v-show="bgloading">
         <div class="con" >
             数据加载中<i class="el-icon-loading"></i>
         </div>
-    </div>
+     </div>
 </div>
 
 </body>
@@ -53,7 +50,16 @@
 <script src="comjs/vue@2.4.js"></script>
 <script src="comjs/elejs.js"></script>
 <script>
-  var token="dcf88e4b2976b6c4eb50e65b27390552";
+
+ (function ($) {
+        $.getUrlParam = function (name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);  return null;
+        }
+    })(jQuery);
+    var token= $.getUrlParam("token");
+//  var token="dcf88e4b2976b6c4eb50e65b27390552";
   Date.prototype.format = function(fmt) {
       var o = {
           "M+" : this.getMonth()+1,                 //月份
@@ -74,35 +80,39 @@
       }
       return fmt;
   }
-  setInterval(function () {
-      a.num=a.num+1000;
-      a.time=new Date(a.num).format("yyyy-MM-dd hh:mm:ss");
-  },1000);
-  var a= new Vue({
+ new Vue({
     el: '#main',
     data: function() {
       return {
           bgloading:true,
           mainData:[],
           bgshow:false,
-          flag:0
+          flag:0,
+          Brans:[]
       }
     },
 mounted: function () {
     this.getMess();
+    this.getbrans();
 },
     methods: {
-        getMess:function () {
+
+        getMess:function (m) {
             console.log("aa");
             var vm=this;
             $.ajax({
                 type:"post",
                 url:"http://appinter.sunwoda.com/common/host/hostlist.json",
                 dataType:"json",
-                data: {"token":token},
+                data: {"token":token,"brandId":m},
                 success:function(data){
                     console.log(data);
-                    vm.mainData=data.dataInfo.listData;
+                    if(data.dataInfo){
+                        vm.mainData=data.dataInfo.listData;
+                    }else {
+                        vm.$message( {type: 'info',message: '暂无数据!'});
+                    }
+
                 }  ,
                 error:function () {
                     vm.$message( {type: 'error',message: '获取失败!'});
@@ -113,16 +123,31 @@ mounted: function () {
 
             });
         },
+        getbrans:function (m) {
+            var vm=this
+            $.ajax({
+                type:"post",
+                url:"http://appinter.sunwoda.com/common/host/hostutil.json",
+                dataType:"json",
+                data: {"token":token},
+                success:function(data){
+                    console.log(data);
+                    if(data.dataInfo){
+                        vm. Brans=data.dataInfo.singleData.itBrands;
+                    }
+                }
+            });
+        },
         getItMessage:function (hostId) {
             console.log(hostId);
-            window.location.href="individual.html?hostId="+hostId;
+            window.location.href="individual.html?token="+token+"&hostId="+hostId;
         },
         butClic:function () {
             var vm=this;
             this.flag++;
             if (this.flag%2==1){
                 vm.bgshow=true;
-                $("#cont").animate({height:"100px"},"slow",)
+                $("#cont").animate({height:"100px"},"slow")
             }else {
                 $("#cont").animate({height:"0"},"fast",function(){
                     vm.bgshow=false;})
@@ -133,6 +158,16 @@ mounted: function () {
         },
         gostatus:function () {
             window.location.href="status.html?token="+token
+        },
+        getNewM:function (n) {
+            var vm =this;
+            if(n==-1){
+                vm.getMess();
+            }else {
+                vm.getMess(n+1);
+            }
+
+
         }
     }
   })

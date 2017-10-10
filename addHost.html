@@ -40,18 +40,19 @@
                 <div class="el-value" > <el-input placeholder="请填写主机IP" v-model="ip"></el-input></div>
             </div>
             <div class="item">
-            <div class="el-key">父主机ip:</div>
-            <div class="el-value" >  <el-input placeholder="请填写父主机IP" v-model="parentIp"></el-input> </div>
-        </div>
+                <div class="el-key">主机名称:</div>
+                <div class="el-value" > <el-input placeholder="请填写主机名称(必填)" v-model="hostName"></el-input></div>
+            </div>
+            <div class="item">
+                <div class="el-key">父主机ip:</div>
+                <div class="el-value" >  <el-input placeholder="请填写父主机IP" v-model="parentIp"></el-input> </div>
+            </div>
             <div class="item">
                 <div class="el-key">是否虚拟机:</div>
                 <div class="el-value" > <el-radio  v-model="isVirtualMachine" label="1">是</el-radio>
                     <el-radio  v-model="isVirtualMachine" label="0">否</el-radio></div>
             </div>
-            <div class="item">
-                <div class="el-key">主机名称:</div>
-                <div class="el-value" > <el-input placeholder="请填写主机名称" v-model="hostName"></el-input></div>
-            </div>
+
             <div class="item">
                 <div class="el-key">地区:</div>
                 <div class="el-value" > <el-select v-model="eara" placeholder="请选择" >
@@ -89,6 +90,10 @@
                 <div class="el-key">资产编号:</div>
                 <div class="el-value" > <el-input placeholder="请填写资产编号" v-model="assetNo"></el-input></div>
             </div>
+            <div class="item">
+                <div class="el-key">服务器描述:</div>
+                <div class="el-value" > <el-input placeholder="请填写服务器描述"  type="textarea" v-model="hostDesc"></el-input></div>
+            </div>
         </div>
 
     </div>
@@ -98,15 +103,7 @@
         <div class="title">补充信息填写</div>
         <div class="content">
             <div class="item">
-                <div class="el-key">位置:</div>
-                <div class="el-value" > <el-input placeholder="请填写放置位置" v-model="location"></el-input></div>
-            </div>
-            <div class="item">
-                <div class="el-key">硬件说明:</div>
-                <div class="el-value" > <el-input placeholder="请填写硬件说明" v-model="hardware"></el-input></div>
-            </div>
-            <div class="item">
-                <div class="el-key">标签:</div>
+                <div class="el-key">品牌:</div>
                 <div class="el-value" > <el-select v-model="brandId" placeholder="请选择" >
                     <el-option
                             v-for="item in brands"
@@ -115,27 +112,44 @@
                     </el-option>
                 </el-select></div>
             </div>
-
-        </div>
-        <div class="title">完善信息填写:</div>
-        <div class="content">
             <div class="item">
-                <div class="el-key">管理员:</div>
-                <div class="el-value" > <el-input placeholder="请填写管理员" v-model="adminUser"></el-input></div>
+                <div class="el-key">位置:</div>
+                <div class="el-value" > <el-input placeholder="请填写放置位置" v-model="location"></el-input></div>
             </div>
             <div class="item">
-                <div class="el-key">管理员电话:</div>
-                <div class="el-value" > <el-input placeholder="请填写管理员电话" v-model="adminTel"></el-input></div>
-            </div>
-            <div class="item">
-                <div class="el-key">服务器描述:</div>
-                <div class="el-value" > <el-input placeholder="请填写服务器描述"  type="textarea" v-model="hostDesc"></el-input></div>
+                <div class="el-key">硬件:</div>
+                <div class="el-value" > <el-input placeholder="请填写硬件说明" v-model="hardware"></el-input></div>
             </div>
             <div class="item">
                 <div class="el-key">硬件详情:</div>
                 <div class="el-value" > <el-input placeholder="请填写硬件详情"  v-model="hardwareDetail"  type="textarea"></el-input></div>
             </div>
         </div>
+        <form name="admin">
+            <div id="admin" @click="removeItem">
+                <div class="title">管理员信息填写
+                    <div class="addItem" @click="addadmin"><i class="el-icon-plus"></i></div>
+                </div>
+                <div class="content">
+                    <div class="item">
+                        <div class="el-key">管理员:</div>
+                        <div class="el-value" > <el-input placeholder="请填写管理员" v-model="adminUser"></el-input></div>
+                    </div>
+                    <div class="item">
+                        <div class="el-key">管理员电话:</div>
+                        <div class="el-value" > <el-input placeholder="请填写管理员电话" v-model="adminTel"></el-input></div>
+                    </div>
+                    <div class="item">
+                        <div class="el-key">管理员部门:</div>
+                        <div class="el-value" > <el-input placeholder="请填写管理员部门"></el-input></div>
+                    </div>
+                    <div class="item">
+                        <div class="el-key">管理员邮箱:</div>
+                        <div class="el-value" > <el-input placeholder="请填写管理员邮箱"></el-input></div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 
     <!--密钥模块-->
@@ -212,7 +226,12 @@
             数据加载中<i class="el-icon-loading"></i>
         </div>
     </div>
-
+    <!--返回上一页-->
+    <div style="position: fixed;bottom: 100px;right: 30px;width: 40px;height: 40px;background: rgba(0,0,0,0.1);z-index: 10">
+        <a href="javascript:history.go(-1)" style="border: solid #bbb 1px; width: 100%;height: 100%;position: absolute">
+            <img src="images/back.png" width="39" height="39">
+        </a>
+    </div>
 </div>
 
 </body>
@@ -254,7 +273,7 @@
         data: function() {
             return {
                 bgloading:true,
-                subshow:false,
+                subshow:true,
                 base:true,
                 add:false,
                 all:false,
@@ -426,7 +445,6 @@
                     this.add=false;
                     this.all=false;
                     this.soft=true;
-                    this.subshow=true
                 }
                 if(this.active>3){
                     this.active=0;
@@ -434,7 +452,6 @@
                     this.add=false;
                     this.all=false;
                     this.soft=false;
-                    this.subshow=true
                 }
 
             },
@@ -495,6 +512,30 @@
                     "</div></div>");
             },
 
+// 添加管理员模块
+            addadmin:function () {
+                $("#admin").append(
+                    "      <div><div style='padding:5px 10px;color: #555;border-bottom: solid 1px #eee'>管理员信息</div>" +
+                    "        <div class='content'> "+
+                    "            <div class='item'>" +
+                    "                <div class='el-key'>姓名</div>" +
+                    "                <div class='el-value' > <input placeholder='请填写管理员姓名' ></input></div>" +
+                    "            </div>" +
+                    "            <div class='item'>" +
+                    "                <div class='el-key'>电话</div>" +
+                    "                <div class='el-value' > <input placeholder='请填写管理员电话' ></input></div>" +
+                    "            </div>" +
+                    "            <div class='item'>" +
+                    "                <div class='el-key'>部门</div>" +
+                    "                <div class='el-value' > <input placeholder='请填写管理员部门' ></input></div>" +
+                    "            </div>" +
+                    "            <div class='item'>" +
+                    "                <div class='el-key'>邮箱</div>" +
+                    "                <div class='el-value' > <input placeholder='请填写管理员邮箱' ></input></div>" +
+                    "            </div>" +
+                    "            <div class='addItem'><i class='el-icon-minus'></i></div>"+
+                    "</div></div>");
+            },
 
 //点击移除事件（添加的软件信息||密钥信息删除）
             removeItem:function (event) {
@@ -505,101 +546,137 @@
 
             },
 
- //进行表单提交
+            //进行表单提交
             submess:function () {
+                if(this.hostName==""){
+                    this.$message( {type: 'info',message: '服务器名称必填!'});
+                }else {
 
-                let vm = this;
-                //获取秘钥信息集合
-                var item = {
-                    accountType:"",
-                    userName:"",
-                    password:""
-                };
-                var pwd=[];
-                for(var i=0;i< document.forms["pwd"].length;i++){
-                    if((i+1)%3==1){
-                        if(i==0){
-                            item.accountType=vm.accounttype;
-                        }else {
-                            item.accountType=document.forms["pwd"][i].value
+
+                    var vm = this;
+                    //获取秘钥信息集合
+                    var item = {
+                        accountType:"",
+                        userName:"",
+                        password:""
+                    };
+                    var pwd=[];
+                    for(var i=0;i< document.forms["pwd"].length;i++){
+                        if((i+1)%3==1){
+                            if(i==0){
+                                item.accountType=vm.accounttype;
+                            }else {
+                                item.accountType=document.forms["pwd"][i].value
+                            }
+                        }
+                        if((i+1)%3==2){
+                            item.userName=document.forms["pwd"][i].value
+                        }
+                        if((i+1)%3==0){
+                            item.password=document.forms["pwd"][i].value
+                            pwd.push(item);
+                            item=new Object({
+                                accountType:"",
+                                userName:"",
+                                password:""
+                            });
                         }
                     }
-                    if((i+1)%3==2){
-                        item.userName=document.forms["pwd"][i].value
-                    }
-                    if((i+1)%3==0){
-                        item.password=document.forms["pwd"][i].value
-                        pwd.push(item);
-                        item=new Object({
-                            accountType:"",
-                            userName:"",
-                            password:""
-                        });
-                    }
-                }
 //------------------------------------------------------------------------------------
 
 //获取软件信息集合
-                var softs=[];
-                var soft={
-                    software:"",
-                    softwareVersion:"",
-                    port:"",
-                    softwarePath:"",
-                    addUser:""
-                };
-                for(var i=0;i< document.forms["softs"].length;i++){
-                    if((i+1)%5==1){
-                        soft.software=document.forms["softs"][i].value
+                    var softs=[];
+                    var soft={
+                        software:"",
+                        softwareVersion:"",
+                        port:"",
+                        softwarePath:"",
+                        addUser:""
+                    };
+                    for(var i=0;i< document.forms["softs"].length;i++){
+                        if((i+1)%5==1){
+                            soft.software=document.forms["softs"][i].value
+                        }
+                        if((i+1)%5==2){
+                            soft.softwareVersion=document.forms["softs"][i].value
+                        }
+                        if((i+1)%5==3){
+                            soft.port=document.forms["softs"][i].value
+                        }
+                        if((i+1)%5==4){
+                            soft.softwarePath=document.forms["softs"][i].value
+                        }
+                        if((i+1)%5==0){
+                            soft.addUser=document.forms["softs"][i].value
+                            softs.push(soft)
+                            soft=new Object({
+                                software:"",
+                                softwareVersion:"",
+                                port:"",
+                                softwarePath:"",
+                                addUser:""
+                            });
+                        }
                     }
-                    if((i+1)%5==2){
-                        soft.softwareVersion=document.forms["softs"][i].value
-                    }
-                    if((i+1)%5==3){
-                        soft.port=document.forms["softs"][i].value
-                    }
-                    if((i+1)%5==4){
-                        soft.softwarePath=document.forms["softs"][i].value
-                    }
-                    if((i+1)%5==0){
-                        soft.addUser=document.forms["softs"][i].value
-                        softs.push(soft)
-                        soft=new Object({
-                            software:"",
-                            softwareVersion:"",
-                            port:"",
-                            softwarePath:"",
-                            addUser:""
-                        });
-                    }
-                }
 //--------------------------------------------------------------------------------------
-                console.log(pwd);
-                console.log(softs);
 
-                if( this.pwdname==""){
-                    pwd=[]
-                }
-                if(this.softName==""){
-                    softs=[]
-                }
-                //提交数据封装
-                var jsondata={
-                    ip:vm.ip,
-                    parentIp:vm.parentIp,
-                    hostName:vm.hostName,
-                    areaId:vm.eara,
-                    hosttypeId:vm.hosttype,
-                    hostDesc:vm.hostDesc,
-                    osId:vm.osty,
-                    location:vm.location,
-                    hardware:vm.hardware,
-                    hardwareDetail:vm.hardwareDetail,
-                    adminUser:vm.adminUser,
-                    adminTel:vm.adminTel,
-                    brandId:vm.brandId,
-                   isVirtualMachine:vm.isVirtualMachine,
-                    assetNo:vm.assetNo,
+//获取管理员信息集合
+                    var admins=[];
+                    var admin={
+                        adminUser:"",
+                        adminTel:"",
+                        adminDept:"",
+                        adminEmail:"",
+                    };
+                    for(var i=0;i< document.forms["admin"].length;i++){
+                        if((i+1)%4==1){
+                            admin.adminUser=document.forms["admin"][i].value
+                        }
+                        if((i+1)%4==2){
+                            admin.adminTel=document.forms["admin"][i].value
+                        }
+                        if((i+1)%4==3){
+                            admin.adminDept=document.forms["admin"][i].value
+                        }
+                        if((i+1)%4==0){
+                            admin.addUser=document.forms["admin"][i].value
+                            admins.push(admin)
+                            admin=new Object({
+                                adminUser:"",
+                                adminTel:"",
+                                adminDept:"",
+                                addUser:""
+                            });
+                        }
+                    }
+//--------------------------------------------------------------------------------------
+                    console.log(pwd);
+                    console.log(softs);
+
+                    if( this.pwdname==""){
+                        pwd=[]
+                    }
+                    if(this.softName==""){
+                        softs=[]
+                    }
+                    if(this.adminUser=="" || this.adminTel=="" ){
+                        admins=[]
+                    }
+                    //提交数据封装
+                    var jsondata={
+                        ip:vm.ip,
+                        parentIp:vm.parentIp,
+                        hostName:vm.hostName,
+                        areaId:vm.eara,
+                        hosttypeId:vm.hosttype,
+                        hostDesc:vm.hostDesc,
+                        osId:vm.osty,
+                        location:vm.location,
+                        hardware:vm.hardware,
+                        hardwareDetail:vm.hardwareDetail,
+                        brandId:vm.brandId,
+                        isVirtualMachine:vm.isVirtualMachine,
+                        assetNo:vm.assetNo,
 //                    supplyId:"",
 //                    addTime:"",
 //                    addUser:"",
@@ -607,42 +684,44 @@
 //                    updUser:"",
 //                    buydate:"",
 //                    setupDate:"",
-                    accountlist:pwd,
-                    softwarelist:softs
-                };
-                var parame={
-                    token:token,
-                    jsondata:JSON.stringify(jsondata)
-                };
-                console.log(jsondata);
+                        accountlist:pwd,
+                        softwarelist:softs,
+                        adminlist:admins
+                    };
+                    var parame={
+                        token:token,
+                        jsondata:JSON.stringify(jsondata)
+                    };
+                    console.log(jsondata);
 
-                $.ajax({
-                    type:"post",
-                    url:"http://appinter.sunwoda.com/common/host/addhost.json",
-                    dataType:"json",
-                    data: parame,
-                    beforeSend:function () {
-                        vm.bgloading=true
-                    },
-                    success:function(data){
-                        console.log(data);
-                        if(data.message=="操作成功"){
-                            vm.$message( {type: 'success',message:data.message});
+                    $.ajax({
+                        type:"post",
+                        url:"http://appinter.sunwoda.com/common/host/addhost.json",
+                        dataType:"json",
+                        data: parame,
+                        beforeSend:function () {
+                            vm.bgloading=true
+                        },
+                        success:function(data){
+                            console.log(data);
+                            if(data.message=="操作成功"){
+                                vm.$message( {type: 'success',message:data.message});
+                                window.location.href="index.html?token="+token;
+                            }
+                            else {
+                                vm.$message( {type: 'error',message:data.message});
+                            }
+                        },
+                        error:function () {
+                            vm.$message( {type: 'error',message: '请求失败!'});
+                        },
+                        complete:function () {
+                            vm.bgloading=false
                         }
-                        else {
-                            vm.$message( {type: 'error',message:data.message});
-                        }
-                    },
-                    error:function () {
-                        vm.$message( {type: 'error',message: '请求失败!'});
-                    },
-                    complete:function () {
-                        vm.bgloading=false
-                    }
 
-                });
+                    });
 
-            }
+                }}
         }
     });
 
