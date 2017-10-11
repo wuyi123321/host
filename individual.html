@@ -86,7 +86,7 @@
     <!--管理员信息显示-->
     <div class="title">
         <div class="title_name">管理员信息</div>
-        <div class="icon"><i class="icon-plus"  @click="bgShow(3)"></i></div>
+        <div class="icon"><i class="icon-pencil"  @click="bgShow(3)"></i></div>
     </div>
     <div class="content">
         <el-collapse accordion>
@@ -127,6 +127,7 @@
             <el-collapse-item v-for="item in softlist">
                 <template slot="title">
                     {{item.software}}
+                   <i class="el-icon-close " style="float: right;color: #049588"></i>
                 </template>
                 <ul >
                     <li>
@@ -282,29 +283,15 @@
                     </div>
                 </div>
             </div>
-            <!--其他信息修改-->
+            <!--管理员信息修改-->
             <div id="otherMess" v-show="otherMess">
                 <div class="title">添加管理员信息</div>
                 <div class="content">
-                    <ul >
-                        <li>
-                            <div class="name">管理员:</div>
-                            <div class="value" > <el-input placeholder="请填写管理员" v-model="admin.adminUser"></el-input></div>
-                        </li>
-                        <li>
-                            <div class="name">管理员电话:</div>
-                            <div class="value" > <el-input placeholder="请填写管理员电话" v-model="admin.adminTel"></el-input></div>
-                        </li>
-                        <li>
-                            <div class="name">管理员部门:</div>
-                            <div class="value" > <el-input placeholder="请填写管理员" v-model="admin.adminDept"></el-input></div>
-                        </li>
-                        <li>
-                            <div class="name">管理员邮箱:</div>
-                            <div class="value" > <el-input placeholder="请填写管理员电话" v-model="admin.adminEmail"></el-input></div>
-                        </li>
-
-                    </ul>
+                    <el-checkbox-group
+                            v-model="adminsid">
+                        <el-checkbox v-for="item in adminall" :label="item.adminId" :key="item.adminId">{{item.adminUser}}</el-checkbox>
+                    </el-checkbox-group>
+                    </template>
                     <div class="bottom">
                         <el-button @click="addadmin">确定</el-button>
                         <el-button @click="closeBg">取消</el-button>
@@ -446,12 +433,8 @@
           softlist:[],
           pwdList:[],
           admins:[],
-          admin:{
-              addUser:"",
-              adminDept:"",
-              adminEmail:'',
-              adminTel:''
-            },
+          adminsid:[],
+          adminall:[],
           bgadd:false,
           addsoft:true,
           miyue:false,
@@ -494,8 +477,33 @@
 mounted: function () {
     this.getMess();
     this.getListMess();
+    this.getadmins()
 },
     methods: {
+        getadmins:function () {
+            var vm=this;
+            $.ajax({
+                type:"post",
+                url:"http://appinter.sunwoda.com/common/host/getAdmins.json",
+                dataType:"json",
+                data: {"token":token,"hostId":0},
+                beforeSend:function () {
+                    vm.bgloading=true
+                },
+                success:function(data){
+                    if(data.statusCode==0){
+                        vm.adminall=data.dataInfo.listData;
+                        console.log( vm.adminall);
+                    }
+                }  ,
+                error:function () {
+                    vm.$message( {type: 'error',message: '获取失败!'});
+                },
+                complete:function () {
+                    vm.bgloading=false
+                }
+            });
+        },
         //获取select下拉选项
         getListMess:function () {
             console.log("aa");
@@ -541,7 +549,7 @@ mounted: function () {
                         vm.mainData=data.dataInfo.singleData;
                         vm.softlist=data.dataInfo.listData[0].softwares;
                         vm.admins=data.dataInfo.listData[0].admins;
-                        console.log(vm.admins+vm.softlist);
+
                     }
                 }  ,
                 error:function () {
@@ -652,6 +660,9 @@ mounted: function () {
                 vm.otherMess=false;
             }
             if(i==3){
+                for(var i=0;i<vm.admins.length;i++){
+                    vm.adminsid.push(vm.admins[i].adminId);
+                }
                 vm.mainMess=false;
                 vm.baseMess=false;
                 vm.otherMess=true;
@@ -793,31 +804,32 @@ mounted: function () {
         },
         addadmin:function () {
             var vm = this;
-            $.ajax({
-                type:"post",
-                url:"http://appinter.sunwoda.com/common/host/addAdmin.json?token="+token+"&hostId="+hostId,
-                dataType:"json",
-                data: vm.admin,
-                beforeSend:function () {
-                    vm.bgloading=true
-                },
-                success:function(data){
-                    console.log(data);
-                    if(data.message=="操作成功"){
-                        vm.$message( {type: 'success',message: '操作成功!'});
-                        vm.admins.push(vm.admin);
-                        vm.closeBgadd();
-                    }else {
-                        vm.$message( {type: 'error',message: data.message});
-                    }
-                }  ,
-                error:function () {
-                    vm.$message( {type: 'error',message: '获取失败!'});
-                },
-                complete:function () {
-                    vm.bgloading=false
-                }
-            });
+            console.log(vm.adminsid);
+//            $.ajax({
+//                type:"post",
+//                url:"http://appinter.sunwoda.com/common/host/addAdmin.json?token="+token+"&hostId="+hostId,
+//                dataType:"json",
+//                data: vm.admin,
+//                beforeSend:function () {
+//                    vm.bgloading=true
+//                },
+//                success:function(data){
+//                    console.log(data);
+//                    if(data.message=="操作成功"){
+//                        vm.$message( {type: 'success',message: '操作成功!'});
+//                        vm.admins.push(vm.admin);
+//                        vm.closeBgadd();
+//                    }else {
+//                        vm.$message( {type: 'error',message: data.message});
+//                    }
+//                }  ,
+//                error:function () {
+//                    vm.$message( {type: 'error',message: '获取失败!'});
+//                },
+//                complete:function () {
+//                    vm.bgloading=false
+//                }
+//            });
         }
     }
   })

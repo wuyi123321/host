@@ -128,24 +128,20 @@
         <form name="admin">
             <div id="admin" @click="removeItem">
                 <div class="title">管理员信息填写
-                    <div class="addItem" @click="addadmin"><i class="el-icon-plus"></i></div>
                 </div>
                 <div class="content">
                     <div class="item">
                         <div class="el-key">管理员:</div>
-                        <div class="el-value" > <el-input placeholder="请填写管理员" v-model="adminUser"></el-input></div>
-                    </div>
-                    <div class="item">
-                        <div class="el-key">管理员电话:</div>
-                        <div class="el-value" > <el-input placeholder="请填写管理员电话" v-model="adminTel"></el-input></div>
-                    </div>
-                    <div class="item">
-                        <div class="el-key">管理员部门:</div>
-                        <div class="el-value" > <el-input placeholder="请填写管理员部门"></el-input></div>
-                    </div>
-                    <div class="item">
-                        <div class="el-key">管理员邮箱:</div>
-                        <div class="el-value" > <el-input placeholder="请填写管理员邮箱"></el-input></div>
+                        <div class="el-value" > <el-select v-model="amdin" placeholder="请选择" multiple>
+                            <el-option
+                                    v-for="item in admins"
+                                    :key="item.adminId"
+                                    :label="item.adminUser"
+                                    :value="item.adminId">
+                                <span style="float: left">{{ item.adminUser }}</span>
+                                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.adminTel }}</span>
+                            </el-option>
+                        </el-select></div>
                     </div>
                 </div>
             </div>
@@ -386,16 +382,44 @@
                 accounttypes:[
                     {accountType: 1, accountName: "操作系统"},
                     {accountType: 2, accountName: "数据库"},
-                    {accountType: 3, accountName: "FTP"}]
+                    {accountType: 3, accountName: "FTP"}],
+                admins:[],
+                amdin:[]
             }
         },
         mounted: function () {
             this.getMess();
+            this.getadmins();
         },
         methods: {
+            getadmins:function () {
+                var vm=this;
+                $.ajax({
+                    type:"post",
+                    url:"http://appinter.sunwoda.com/common/host/getAdmins.json",
+                    dataType:"json",
+                    data: {"token":token,"hostId":0},
+                    beforeSend:function () {
+                        vm.bgloading=true
+                    },
+                    success:function(data){
+
+                        if(data.statusCode==0){
+                            vm.admins=data.dataInfo.listData;
+                            console.log( vm.admins);
+                        }
+                    }  ,
+                    error:function () {
+                        vm.$message( {type: 'error',message: '获取失败!'});
+                    },
+                    complete:function () {
+                        vm.bgloading=false
+                    }
+                });
+            },
 //获取下拉列表信息
             getMess:function () {
-                console.log("aa");
+
                 var vm=this;
                 $.ajax({
                     type:"post",
@@ -513,29 +537,29 @@
             },
 
 // 添加管理员模块
-            addadmin:function () {
-                $("#admin").append(
-                    "      <div><div style='padding:5px 10px;color: #555;border-bottom: solid 1px #eee'>管理员信息</div>" +
-                    "        <div class='content'> "+
-                    "            <div class='item'>" +
-                    "                <div class='el-key'>姓名</div>" +
-                    "                <div class='el-value' > <input placeholder='请填写管理员姓名' ></input></div>" +
-                    "            </div>" +
-                    "            <div class='item'>" +
-                    "                <div class='el-key'>电话</div>" +
-                    "                <div class='el-value' > <input placeholder='请填写管理员电话' ></input></div>" +
-                    "            </div>" +
-                    "            <div class='item'>" +
-                    "                <div class='el-key'>部门</div>" +
-                    "                <div class='el-value' > <input placeholder='请填写管理员部门' ></input></div>" +
-                    "            </div>" +
-                    "            <div class='item'>" +
-                    "                <div class='el-key'>邮箱</div>" +
-                    "                <div class='el-value' > <input placeholder='请填写管理员邮箱' ></input></div>" +
-                    "            </div>" +
-                    "            <div class='addItem'><i class='el-icon-minus'></i></div>"+
-                    "</div></div>");
-            },
+//            addadmin:function () {
+//                $("#admin").append(
+//                    "      <div><div style='padding:5px 10px;color: #555;border-bottom: solid 1px #eee'>管理员信息</div>" +
+//                    "        <div class='content'> "+
+//                    "            <div class='item'>" +
+//                    "                <div class='el-key'>姓名</div>" +
+//                    "                <div class='el-value' > <input placeholder='请填写管理员姓名' ></input></div>" +
+//                    "            </div>" +
+//                    "            <div class='item'>" +
+//                    "                <div class='el-key'>电话</div>" +
+//                    "                <div class='el-value' > <input placeholder='请填写管理员电话' ></input></div>" +
+//                    "            </div>" +
+//                    "            <div class='item'>" +
+//                    "                <div class='el-key'>部门</div>" +
+//                    "                <div class='el-value' > <input placeholder='请填写管理员部门' ></input></div>" +
+//                    "            </div>" +
+//                    "            <div class='item'>" +
+//                    "                <div class='el-key'>邮箱</div>" +
+//                    "                <div class='el-value' > <input placeholder='请填写管理员邮箱' ></input></div>" +
+//                    "            </div>" +
+//                    "            <div class='addItem'><i class='el-icon-minus'></i></div>"+
+//                    "</div></div>");
+//            },
 
 //点击移除事件（添加的软件信息||密钥信息删除）
             removeItem:function (event) {
@@ -548,6 +572,7 @@
 
             //进行表单提交
             submess:function () {
+                console.log(this.amdin);
                 if(this.hostName==""){
                     this.$message( {type: 'info',message: '服务器名称必填!'});
                 }else {
@@ -620,36 +645,6 @@
                     }
 //--------------------------------------------------------------------------------------
 
-//获取管理员信息集合
-                    var admins=[];
-                    var admin={
-                        adminUser:"",
-                        adminTel:"",
-                        adminDept:"",
-                        adminEmail:"",
-                    };
-                    for(var i=0;i< document.forms["admin"].length;i++){
-                        if((i+1)%4==1){
-                            admin.adminUser=document.forms["admin"][i].value
-                        }
-                        if((i+1)%4==2){
-                            admin.adminTel=document.forms["admin"][i].value
-                        }
-                        if((i+1)%4==3){
-                            admin.adminDept=document.forms["admin"][i].value
-                        }
-                        if((i+1)%4==0){
-                            admin.addUser=document.forms["admin"][i].value
-                            admins.push(admin)
-                            admin=new Object({
-                                adminUser:"",
-                                adminTel:"",
-                                adminDept:"",
-                                addUser:""
-                            });
-                        }
-                    }
-//--------------------------------------------------------------------------------------
                     console.log(pwd);
                     console.log(softs);
 
@@ -658,9 +653,6 @@
                     }
                     if(this.softName==""){
                         softs=[]
-                    }
-                    if(this.adminUser=="" || this.adminTel=="" ){
-                        admins=[]
                     }
                     //提交数据封装
                     var jsondata={
@@ -686,7 +678,7 @@
 //                    setupDate:"",
                         accountlist:pwd,
                         softwarelist:softs,
-                        adminlist:admins
+                        adminship:vm.amdin
                     };
                     var parame={
                         token:token,
@@ -706,7 +698,7 @@
                             console.log(data);
                             if(data.message=="操作成功"){
                                 vm.$message( {type: 'success',message:data.message});
-                                window.location.href="index.html?token="+token;
+                               window.location.href="index.html?token="+token;
                             }
                             else {
                                 vm.$message( {type: 'error',message:data.message});

@@ -12,13 +12,13 @@
 #main .title .title_name{
   width: 80px;
 }
-#main .title .icon{
+#main  .icon{
     display: flex;
     flex: 1;
     justify-content: flex-end;
     color: #049588;
 }
-#main .title .icon i:hover{
+#main .icon i:hover{
     color: #666 ;
 }
 #main .content ul li{
@@ -127,4 +127,23 @@
 
 .el-select .el-input__inner:focus {
     border-color:#049588;
+}
+.el-checkbox__input.is-checked .el-checkbox__inner {
+    background-color:#049588;
+    border-color:#049588;
+}
+.el-checkbox-group{
+    display: flex;
+    flex-wrap:wrap;
+}
+.el-checkbox{
+    margin-left: 0px;
+    min-width: 30%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.el-checkbox+.el-checkbox {
+    margin-left: 0px;
 }
