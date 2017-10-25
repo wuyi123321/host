@@ -21,7 +21,8 @@
     <!--主要信息显示-->
     <div class="title">
         <div class="title_name">主要信息</div>
-        <div class="icon" @click="bgShow(1)"><i class="icon-pencil"></i></div>
+        <div><el-button size="small" @click="deleteitem('removehost','host',$event)">删除服务器</el-button></div>
+        <div class="icon" ><i class="icon-pencil" @click="bgShow(1)"></i></div>
     </div>
     <div class="content">
         <ul >
@@ -127,7 +128,7 @@
             <el-collapse-item v-for="item in softlist">
                 <template slot="title">
                     {{item.software}}
-                   <i class="el-icon-close " style="float: right;color: #049588"></i>
+                    <span><i class="el-icon-close " @click="deleteitem('removeSoft',item.software,$event)"></i></span>
                 </template>
                 <ul >
                     <li>
@@ -164,6 +165,7 @@
             <el-collapse-item v-for="item in pwdList">
                 <template slot="title">
                     {{item.userName}}
+                    <span><i class="el-icon-close " @click="deleteitem('removeAccount',item.userName,$event)"></i></span>
                 </template>
                 <ul >
                     <li>
@@ -238,10 +240,7 @@
                         <div class="name">资产编号</div>
                         <div class="value"><el-input placeholder="请填写资产编号" v-model="mainData.assetNo"></el-input></div>
                     </li>
-                    <li>
-                        <div class="name">服务器描述:</div>
-                        <div class="value" > <el-input placeholder="请填写服务器描述"  type="textarea" v-model="mainData.hostDesc"></el-input></div>
-                    </li>
+
                 </ul>
                 <div class="bottom">
                     <el-button @click="updata">确定</el-button>
@@ -275,6 +274,10 @@
                                         :value="item.brandId">
                                 </el-option>
                             </el-select></div>
+                        </li>
+                        <li>
+                            <div class="name">服务器描述:</div>
+                            <div class="value" > <el-input placeholder="请填写服务器描述"  type="textarea" v-model="mainData.hostDesc"></el-input></div>
                         </li>
                     </ul>
                     <div class="bottom">
@@ -549,7 +552,6 @@ mounted: function () {
                         vm.mainData=data.dataInfo.singleData;
                         vm.softlist=data.dataInfo.listData[0].softwares;
                         vm.admins=data.dataInfo.listData[0].admins;
-
                     }
                 }  ,
                 error:function () {
@@ -606,7 +608,7 @@ mounted: function () {
         },
         //点击出现输入查询码
         getPassWord:function () {
-            let vm = this;
+var vm = this;
             this.$prompt('请输入查询密码', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
@@ -626,8 +628,8 @@ mounted: function () {
                         return "输入的位数超过"
                     }
                 },
-            }).then(({value}) => {
-                vm .subPad(value);
+            }).then(({ value }) => {
+                vm.subPad(value);
         }).catch(() => {
                 this.$message({
                 type: 'info',
@@ -660,6 +662,7 @@ mounted: function () {
                 vm.otherMess=false;
             }
             if(i==3){
+                vm.adminsid=[];
                 for(var i=0;i<vm.admins.length;i++){
                     vm.adminsid.push(vm.admins[i].adminId);
                 }
@@ -726,17 +729,15 @@ mounted: function () {
                 vm.miyue=true;
             }
         },
-
         additem:function (i) {
             var vm = this
             if(i == 1){
                 vm.addsofts();
             } else if(i == 2){
-                vm. addmiyue();
+                vm.addmiyue();
             }
 
         },
-
         addsofts:function () {
             var vm = this;
             console.log(vm.soft);
@@ -805,31 +806,98 @@ mounted: function () {
         addadmin:function () {
             var vm = this;
             console.log(vm.adminsid);
-//            $.ajax({
-//                type:"post",
-//                url:"http://appinter.sunwoda.com/common/host/addAdmin.json?token="+token+"&hostId="+hostId,
-//                dataType:"json",
-//                data: vm.admin,
-//                beforeSend:function () {
-//                    vm.bgloading=true
-//                },
-//                success:function(data){
-//                    console.log(data);
-//                    if(data.message=="操作成功"){
-//                        vm.$message( {type: 'success',message: '操作成功!'});
-//                        vm.admins.push(vm.admin);
-//                        vm.closeBgadd();
-//                    }else {
-//                        vm.$message( {type: 'error',message: data.message});
-//                    }
-//                }  ,
-//                error:function () {
-//                    vm.$message( {type: 'error',message: '获取失败!'});
-//                },
-//                complete:function () {
-//                    vm.bgloading=false
-//                }
-//            });
+            var jsonstr={
+                hostId:hostId,
+                adminId:vm.adminsid
+            }
+            var pram={
+                admindata:JSON.stringify(jsonstr)
+            };
+            console.log(pram);
+            $.ajax({
+                type:"post",
+                url:"http://appinter.sunwoda.com/common/host/removeAdminShip.json?token="+token,
+                dataType:"json",
+                data: pram,
+                beforeSend:function () {
+                    vm.bgloading=true
+                },
+                success:function(data){
+                    console.log(data);
+                    if(data.message=="操作成功"){
+                        vm.closeBg();
+                        vm.getMess();
+                        vm.$message( {type: 'success',message: '操作成功!'});
+                    }else {
+                        vm.$message( {type: 'error',message: data.message});
+                    }
+                }  ,
+                error:function () {
+                    vm.$message( {type: 'error',message: '获取失败!'});
+                },
+                complete:function () {
+                    vm.bgloading=false
+                }
+            });
+        },
+        deleteitem:function (inter,content,e) {
+            console.log(e.target.parentNode.parentNode.parentNode);
+            var vm = this;
+            var pram = { hostId:hostId};
+            if(inter=="removeSoft"){
+                pram={
+                    software:content,
+                    hostId:hostId
+                }
+            }
+            if(inter=="removeAccount"){
+                pram={
+                    userName:content,
+                    hostId:hostId
+                }
+            }
+           console.log(inter+content);
+            this.$confirm('此操作将永久删除该信息, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                $.ajax({
+                    type:"post",
+                    url:"http://appinter.sunwoda.com/common/host/"+inter+".json?token="+token,
+                    dataType:"json",
+                    data: pram,
+                    beforeSend:function () {
+                        vm.bgloading=true
+                    },
+                    success:function(data){
+                        console.log(data);
+                        if(data.message=="操作成功"){
+                            vm.$message( {type: 'success',message: '删除成功!'});
+                            if(inter=="removehost"){
+                                window.location.href="index.html?token="+token;
+                            }else {
+                                e.target.parentNode.parentNode.parentNode.innerHTML='';
+                            }
+
+                        }else {
+                            vm.$message( {type: 'error',message: data.message});
+                        }
+                    }  ,
+                    error:function () {
+                        vm.$message( {type: 'error',message: '获取失败!'});
+                    },
+                    complete:function () {
+                        vm.bgloading=false
+                    }
+                });
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });
+            });
+
         }
     }
   })

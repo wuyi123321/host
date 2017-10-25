@@ -573,12 +573,8 @@
             //进行表单提交
             submess:function () {
                 console.log(this.amdin);
-                if(this.hostName==""){
-                    this.$message( {type: 'info',message: '服务器名称必填!'});
-                }else {
 
-
-                    var vm = this;
+                var vm = this;
                     //获取秘钥信息集合
                     var item = {
                         accountType:"",
@@ -713,7 +709,7 @@
 
                     });
 
-                }}
+                }
         }
     });
 

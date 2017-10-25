@@ -10,7 +10,7 @@
     padding-right: 10px;
 }
 #main .title .title_name{
-  width: 80px;
+  width: 40%;
 }
 #main  .icon{
     display: flex;
@@ -100,6 +100,16 @@
     bottom: 0;
     margin: auto;
 }
+.el-collapse-item__header{
+    display: flex;
+    align-items: center;
+}
+.el-collapse-item__header span {
+  width: 100%;
+    text-align: right;
+    padding-right: 10px;
+    color:#049588;
+}
 .el-button:focus, .el-button:hover {
     color:#049588;
     border-color: #049588;
@@ -131,6 +141,16 @@
 .el-checkbox__input.is-checked .el-checkbox__inner {
     background-color:#049588;
     border-color:#049588;
+}
+.el-button--primary {
+    color: #fff;
+    background-color:#049588;
+    border-color:#049588;
+}
+.el-button--primary:focus, .el-button--primary:hover {
+    background-color:#049588;
+    border-color:#049588;
+    color: #fff;
 }
 .el-checkbox-group{
     display: flex;

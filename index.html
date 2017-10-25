@@ -16,10 +16,20 @@
 <link rel="stylesheet" href="css/index.css" type="text/css" />
 <body>
 <div id="main">
+
+
     <div class="top">
-        <div class="item" @click="getNewM(-1)">全部</div>
-        <div class="item" v-for="(item,n) in Brans" @click="getNewM(n)" >{{item.brandName}}</div>
+        <div class="slect"> <el-input placeholder="请输入ip进行查询" v-model="ip" @change="select" >
+            <el-button slot="append" icon="search" @click="select"></el-button>
+        </el-input>
+        </div>
+        <div class="type">
+            <div class="item" @click="getNewM(-1)">全部</div>
+            <div class="item" v-for="(item,n) in Brans" @click="getNewM(n)" >{{item.brandName}}</div>
+        </div>
+
     </div>
+
     <div class="content">
        <ul >
            <li v-for="item in mainData"  @click="getItMessage(item.hostId)">
@@ -84,11 +94,13 @@
     el: '#main',
     data: function() {
       return {
+          ip:"192.168.6.11",
           bgloading:true,
           mainData:[],
           bgshow:false,
           flag:0,
-          Brans:[]
+          Brans:[],
+          all:[]
       }
     },
 mounted: function () {
@@ -96,10 +108,10 @@ mounted: function () {
     this.getbrans();
 },
     methods: {
-
         getMess:function (m) {
             console.log("aa");
             var vm=this;
+
             $.ajax({
                 type:"post",
                 url:"http://appinter.sunwoda.com/common/host/hostlist.json",
@@ -109,10 +121,11 @@ mounted: function () {
                     console.log(data);
                     if(data.dataInfo){
                         vm.mainData=data.dataInfo.listData;
+                        vm.all=data.dataInfo.listData;
                     }else {
                         vm.$message( {type: 'info',message: '暂无数据!'});
+                        vm.mainData=[];
                     }
-
                 }  ,
                 error:function () {
                     vm.$message( {type: 'error',message: '获取失败!'});
@@ -122,6 +135,18 @@ mounted: function () {
                 }
 
             });
+        },
+        select:function () {
+            var vm =this;
+            var m=[];
+            for (i in vm.all){
+                if(new RegExp(vm.ip).test(vm.all[i].ip)){
+//                    vm.mainData=vm.mainData[i]
+                    m.push(vm.all[i])
+                    console.log(vm.all[i])
+                }
+            }
+            vm.mainData=m
         },
         getbrans:function (m) {
             var vm=this
